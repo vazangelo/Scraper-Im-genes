@@ -1,7 +1,8 @@
 import os
 from playwright.sync_api import sync_playwright
 
-URL_SITIO = "https://fichasalertanacional.segob.gob.mx/" #Ejemplo
+#Ejemplo
+URL_SITIO = "https://fichasalertanacional.segob.gob.mx/"
 CARPETA_SALIDA = "fichas"
 os.makedirs(CARPETA_SALIDA, exist_ok=True)
 
@@ -22,7 +23,7 @@ with sync_playwright() as p:
 
     # Monitoreo continuo, para sitios con carrucel de imagenes
     for ciclo in range(12):
-        print(f"\n--- Ciclo {ciclo + 1}/20 ---")
+        print(f"\n--- Ciclo {ciclo + 1}/12 ---")
 
         # Extraer todos los src presentes en el DOM actual
         todos_los_src = page.evaluate("""
@@ -57,7 +58,7 @@ with sync_playwright() as p:
                 except Exception as e:
                     print(f"  [!] Error al descargar {nombre_archivo}: {e}")
 
-        # Hacemos scroll suave para disparar componentes o carruseles lazy
+        # Hacemos scroll lento
         page.mouse.wheel(0, 500)
         page.wait_for_timeout(5000)
 
